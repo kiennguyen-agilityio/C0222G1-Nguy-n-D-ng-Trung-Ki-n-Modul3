@@ -5,7 +5,7 @@ cID int primary key ,
 cName varchar(50),
 cAge int 
 );
-create table `order` (
+create table order_customer (
 oDate int,
 oTotalPrice int ,
 oID int primary key,
@@ -23,7 +23,7 @@ create table order_detail(
 product_pID int ,
 odQTY int,
 primary key (order_oID,product_pID),
-constraint fk_order_oID foreign key (order_oID) references`order`(oID),
+constraint fk_order_oID foreign key (order_oID) references order_customer(oID),
 constraint fk_product_pID foreign key (product_pID) references product(pID)
 );
 
