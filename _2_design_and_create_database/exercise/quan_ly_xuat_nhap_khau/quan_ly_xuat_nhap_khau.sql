@@ -1,65 +1,65 @@
 create database quan_ly_xuat_nhap_khau;
 use quan_ly_xuat_nhap_khau ;
 create table phieu_xuat (
-SoPX int primary key,
-NgayXuat date
+so_px int primary key,
+ngay_xuat date
 );
 create table vat_tu(
-MaVTU int primary key , 
-TenVTU varchar(50)
+ma_vat_tu int primary key , 
+ten_vat_tu varchar(50)
 );
 
 create table chi_tiet_xuat_khau(
-DGxuat int ,
-SLxuat int,
+don_gia_xuat int ,
+so_luong_xuat int,
 phieu_xuat_SoPX int , 
-vat_tu_MaVTU int ,
-primary key(phieu_xuat_SoPX,vat_tu_MaVTU),
-foreign key (phieu_xuat_SoPX) references phieu_xuat(SoPX),
-foreign key (vat_tu_MaVTU) references vat_tu(MaVTU)
+vat_tu_ma_vat_tu int ,
+primary key(phieu_xuat_so_phieu_xuat,vat_tu_ma_vat_tu),
+foreign key (phieu_xuat_so_phieu_xuat) references phieu_xuat(so_phieu_xuat),
+foreign key (vat_tu_ma_vat_tu) references vat_tu(ma_vat_tu)
 );
 
  create table phieu_nhap(
- SoPN int primary key  ,
- NgayNhap date 
+ so_phieu_nhap int primary key  ,
+ ngay_nhap date 
  );
 
  create table chi_tiet_nhap_khau(
- DGNhap int,
- SLNhap int,
- phieu_nhap_MaVTU int,
- phieu_nhap_soPN int, 
- primary key (phieu_nhap_MaVTU, phieu_nhap_soPN),
- foreign key (phieu_nhap_MaVTU) references vat_tu(MaVTU),
- foreign key (phieu_nhap_soPN) references phieu_nhap(SoPN)
+ don_gia_nhap int,
+ so_luong_nhap int,
+ phieu_nhap_ma_vat_tu int,
+ phieu_nhap_so_phieu_nhap int, 
+ primary key (phieu_nhap_ma_vat_tu, phieu_nhap_so_phieu_nhap),
+ foreign key (phieu_nhap_ma_vat_tu) references vat_tu(ma_vat_tu),
+ foreign key (phieu_nhap_so_phieu_nhap) references phieu_nhap(so_phieu_nhap)
  
  );
  
  create table nha_cc(
- MaNCC int primary key ,
- TenNCC varchar(50),
+ ma_ncc int primary key ,
+ ten_ncc varchar(50),
  dia_chi varchar(50)
  );
  create table so_dien_thoai(
- MaNCC int,
+ ma_ncc int,
  so_dien_thoai_sdt int ,
  primary key ( so_dien_thoai_sdt),
- foreign key ( MaNCC) references nha_cc(MaNCC)
+ foreign key ( ma_ncc) references nha_cc(ma_ncc)
  );
 
  create table don_dh(
- SoDH int primary key,
-ngayDH date,
-NHACC_MaNCC int,
-foreign key(NHACC_MaNCC)references nha_cc(MaNCC)
+ so_dh int primary key,
+ngay_dh date,
+nha_cc_ma_ncc int,
+foreign key(nha_cc_ma_ncc)references nha_cc(ma_ncc)
  );
  
 create table chi_tiet_don_hang(
 vat_tu_MaVTU int , 
-DONDH_soDH int,
-primary key(vat_tu_MaVTU,DONDH_soDH),
-foreign key (vat_tu_MaVTU) references vat_tu(MaVTU),
-foreign key (DONDH_soDH) references don_dh(SoDH)
+don_dh_so_dh int,
+primary key(vat_tu_ma_vat_tu,don_dh_so_dh),
+foreign key (vat_tu_ma_vat_tu) references vat_tu(ma_vat_tu),
+foreign key (don_dh_so_dh) references don_dh(so_dh)
 );
 
  

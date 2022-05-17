@@ -29,18 +29,9 @@ RIGHT JOIN khach_hang on khach_hang.ma_khach_hang = hop_dong.ma_khach_hang
 JOIN loai_khach on loai_khach.ma_loai_khach = khach_hang.ma_loai_khach
 GROUP BY ma_khach_hang;
 -- task 6 --
-use furama;
-select dv.ma_dich_vu,dv.ten_dich_vu,dv.dien_tich,dv.so_nguoi_toi_da,dv.chi_phi_thue,ldv.ten_loai_dich_vu
+select mdv.ma_dich_vu,tdv.ten_dich_vu,dt.dien_tich,sl.so_nguoi_toi_da,cp.chi_phi_thue,tldv.ten_loai_dich_vu
 from dich_vu dv 
 join loai_dich_vu ldv on dv.ma_loai_dich_vu=ldv.ma_loai_dich_vu
 join hop_dong hd on hd.ma_dich_vu=dv.ma_dich_vu
-where month (hd.ngay_lam_hop_dong)>= 1 and  month (hd.ngay_lam_hop_dong)<=3;
--- task 7 --
-select dv.ma_dich_vu,dv.ten_dich_vu,dv.dien_tich,dv.so_nguoi_toi_da,dv.chi_phi_thue,ldv.ten_loai_dich_vu
-from dich_vu dv 
-join loai_dich_vu ldv on dv.ma_loai_dich_vu=ldv.ma_loai_dich_vu
-join hop_dong hd on hd.ma_dich_vu=dv.ma_dich_vu
-where hd.ma_dich_vu 
-in (select hd.ma_dich_vu from hop_dong hd where year(hd.ngay_lam_hop_dong)=2020)
-and hd.ma_dich_vu not in (select hd.ma_dich_vu from hop_dong hd where year(hd.ngay_lam_hop_dong)=2021);
+w
  
