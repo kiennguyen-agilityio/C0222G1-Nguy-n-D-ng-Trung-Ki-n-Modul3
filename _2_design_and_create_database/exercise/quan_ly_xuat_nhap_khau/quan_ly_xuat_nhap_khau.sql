@@ -1,7 +1,7 @@
 create database quan_ly_xuat_nhap_khau;
 use quan_ly_xuat_nhap_khau ;
 create table phieu_xuat (
-so_px int primary key,
+so_phieu_xuat int primary key,
 ngay_xuat date
 );
 create table vat_tu(
@@ -12,7 +12,7 @@ ten_vat_tu varchar(50)
 create table chi_tiet_xuat_khau(
 don_gia_xuat int ,
 so_luong_xuat int,
-phieu_xuat_SoPX int , 
+phieu_xuat_so_phieu_xuat int , 
 vat_tu_ma_vat_tu int ,
 primary key(phieu_xuat_so_phieu_xuat,vat_tu_ma_vat_tu),
 foreign key (phieu_xuat_so_phieu_xuat) references phieu_xuat(so_phieu_xuat),
@@ -55,7 +55,7 @@ foreign key(nha_cc_ma_ncc)references nha_cc(ma_ncc)
  );
  
 create table chi_tiet_don_hang(
-vat_tu_MaVTU int , 
+vat_tu_ma_vat_tu int , 
 don_dh_so_dh int,
 primary key(vat_tu_ma_vat_tu,don_dh_so_dh),
 foreign key (vat_tu_ma_vat_tu) references vat_tu(ma_vat_tu),

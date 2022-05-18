@@ -17,16 +17,20 @@ where kh.ma_loai_khach = 1
 group by h.ma_khach_hang
 order by count(h.ma_khach_hang) asc;
 -- task5--
-SELECT khach_hang.ma_khach_hang, khach_hang.ho_ten, loai_khach.ten_loai_khach,
- hd.ma_hop_dong, hd.ngay_lam_hop_dong, hd.ngay_ket_thuc, dich_vu.ten_dich_vu,
- sum(dich_vu.chi_phi_thue + (hop_dong_chi_tiet.so_luong * dich_vu_di_kem.gia))as tong_tien,
- count(hop_dong.ma_khach_hang) AS so_lan_dat_phong 
+SELECT kh.ma_khach_hang, kh.ho_ten, 
+loai_khach.ten_loai_khach,
+ hd.ma_hop_dong, 
+ hd.ngay_lam_hop_dong,
+ hd.ngay_ket_thuc,
+ dv.ten_dich_vu,
+ sum(dv.chi_phi_thue + (hop_dong_chi_tiet.so_luong * dich_vu_di_kem.gia))as tong_tien,
+ count(hd.ma_khach_hang) AS so_lan_dat_phong 
  FROM hop_dong_chi_tiet
  JOIN hop_dong hd on hd.ma_hop_dong = hop_dong_chi_tiet.ma_hop_dong
  JOIN dich_vu_di_kem on dich_vu_di_kem.ma_dich_vu_di_kem = hop_dong_chi_tiet.ma_dich_vu_di_kem
- JOIN dich_vu on dich_vu.ma_dich_vu = hop_dong.ma_dich_vu
-RIGHT JOIN khach_hang on khach_hang.ma_khach_hang = hop_dong.ma_khach_hang
-JOIN loai_khach on loai_khach.ma_loai_khach = khach_hang.ma_loai_khach
+ JOIN dich_vu dv on dv.ma_dich_vu = hd.ma_dich_vu
+RIGHT JOIN khach_hang kh on kh.ma_khach_hang = hd.ma_khach_hang
+JOIN loai_khach on loai_khach.ma_loai_khach = kh.ma_loai_khach
 GROUP BY ma_khach_hang;
 -- task 6 --
 use furama;
@@ -43,4 +47,19 @@ join hop_dong hd on hd.ma_dich_vu=dv.ma_dich_vu
 where hd.ma_dich_vu 
 in (select hd.ma_dich_vu from hop_dong hd where year(hd.ngay_lam_hop_dong)=2020)
 and hd.ma_dich_vu not in (select hd.ma_dich_vu from hop_dong hd where year(hd.ngay_lam_hop_dong)=2021);
+
+-- task 8 -- 
+select ho_ten
+from khach_hang
+group by ho_ten;
+
+select distinct ho_ten
+from khach_hang;
+
+select  ho_ten
+from  khach_hang union 
+select  ho_ten
+from  khach_hang;
+
+
  
