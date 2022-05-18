@@ -61,5 +61,24 @@ from  khach_hang union
 select  ho_ten
 from  khach_hang;
 
+-- task 9 --
+select  Month(ngay_lam_hop_dong) as thang , count(ngay_lam_hop_dong)as so_luong
+from hop_dong 
+where Year(ngay_lam_hop_dong) = 2021 group by thang ; 
+
+-- task 10-- 
+select hd.ma_hop_dong,hd.ngay_lam_hop_dong,hd.ngay_ket_thuc,hd.tien_dat_coc , sum(hdct.so_luong) as so_luong_dich_vu_di_kem
+from hop_dong hd
+left join  hop_dong_chi_tiet hdct  on hdct.ma_hop_dong=hd.ma_hop_dong
+group by ma_hop_dong 
+order by hd.ma_hop_dong;
+
+-- task 11-- 
+select lk.ten_loai_khach , kh.dia_chi
+from khach_hang kh 
+join loai_khach lk on lk.ma_loai_khach=kh.ma_loai_khach
+where lk.ten_loai_khach  = "Diamond" and (kh.dia_chi="Vinh" or kh.dia_chi="Quảng Ngãi");
+
+-- task 12 -- 
 
  
