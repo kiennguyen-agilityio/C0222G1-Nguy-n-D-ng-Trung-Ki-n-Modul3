@@ -1,0 +1,20 @@
+.head {
+    width: 90%;
+    position: relative;
+    left: 5%;
+    height: 52px;
+    align-items: center;
+    text-align: center;
+    justify-content: space-around;
+}
+.logo-head{
+    align-items: center;
+}
+.microsoft-logo{
+    width: 108px;
+    height: 23px;
+}
+.middle-header{
+    display: flex;
+    justify-content: space-around;
+}
