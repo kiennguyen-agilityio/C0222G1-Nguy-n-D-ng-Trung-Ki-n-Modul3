@@ -5,13 +5,15 @@ import repository.IProductRepository;
 import repository.impl.ProductRepository;
 import service.IProductService;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class ProductService  implements IProductService {
+public class ProductService implements IProductService {
     IProductRepository productRepository = new ProductRepository();
 
     @Override
     public List<Product> findAll() {
+
         return productRepository.findAll();
     }
 
@@ -21,17 +23,24 @@ public class ProductService  implements IProductService {
     }
 
     @Override
-    public void add(Product product) {
-     productRepository.add(product);
+    public void put(int id, Product product) {
+        productRepository.put(id, product);
     }
+
 
     @Override
     public void update(int id, Product product) {
-   productRepository.update(id, product);
+        productRepository.update(id, product);
     }
 
     @Override
     public void delete(int id) {
-   productRepository.delete(id);
+        productRepository.delete(id);
+    }
+
+    @Override
+    public List<Product> search(String name) {
+        return productRepository.search(name);
     }
 }
+

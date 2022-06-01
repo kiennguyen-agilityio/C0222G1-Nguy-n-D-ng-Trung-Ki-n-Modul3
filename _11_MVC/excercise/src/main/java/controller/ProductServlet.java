@@ -33,11 +33,19 @@ public class ProductServlet extends HttpServlet {
             case "delete":
                 deleteProduct(request, response);
                 break;
+                case "details" :
+                    getInfoProduct(request,response);
+                    break;
             default:
                 break;
         }
     }
-
+    private void getInfoProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Integer id = Integer.parseInt(request.getParameter("id"));
+        Product product = this.productService.findById(id);
+        request.setAttribute("product",product);
+        request.getRequestDispatcher("products/detail.jsp").forward(request,response );
+    }
     private void createProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = productList.size();
         String name = request.getParameter("name");
@@ -46,7 +54,7 @@ public class ProductServlet extends HttpServlet {
         String dateProduce = request.getParameter("dateProduce");
 
         Product product = new Product(id, name, price, status, dateProduce);
-        this.productService.add(product);
+        this.productService.put(id,product);
         response.sendRedirect("products");
     }
 
@@ -96,6 +104,9 @@ public class ProductServlet extends HttpServlet {
         }
     }
 
+
+
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws
             ServletException, IOException {
         String action = request.getParameter("action");
@@ -112,13 +123,24 @@ public class ProductServlet extends HttpServlet {
             case "delete":
                 showDeleteForm(request, response);
                 break;
-//            case "view":
-//                viewCustomer(request,response);
-//                break;
+            case "details" :
+                    getInfoProduct(request,response);
+                    break;
+            case "search" :
+                searchProduct(request,response);
+                break;
             default:
                 listProduct(request, response);
                 break;
         }
+    }
+
+    private void searchProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String name = request.getParameter("name");
+        List<Product> products = this.productService.search(name);
+        request.setAttribute("product",products);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("products/search.jsp");
+        dispatcher.forward(request, response);
     }
 
     private void listProduct(HttpServletRequest request, HttpServletResponse response) throws
@@ -137,8 +159,7 @@ public class ProductServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
-    private void showEditForm(HttpServletRequest request, HttpServletResponse response) throws
-            ServletException, IOException {
+    private void showEditForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         Product product = this.productService.findById(id);
 
@@ -179,24 +200,4 @@ public class ProductServlet extends HttpServlet {
     }
 }
 
-
-//
-//    private void viewCustomer(HttpServletRequest request, HttpServletResponse response) {
-//        int id = Integer.parseInt(request.getParameter("id"));
-//        Customer customer = this.customerService.findById(id);
-//        RequestDispatcher dispatcher;
-//        if(customer == null){
-//            dispatcher = request.getRequestDispatcher("error-404.jsp");
-//        } else {
-//            request.setAttribute("customer", customer);
-//            dispatcher = request.getRequestDispatcher("customer/view.jsp");
-//        }
-//        try {
-//            dispatcher.forward(request, response);
-//        } catch (ServletException e) {
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
 
